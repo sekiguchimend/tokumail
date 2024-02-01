@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syatyo Page</title>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js';
+
+        // Firebase の構成情報
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNz7b0bOpc3Bmo2NNzlX0fhqVtyhQF3jM",
+  authDomain: "tokumail-c8a51.firebaseapp.com",
+  projectId: "tokumail-c8a51",
+  storageBucket: "tokumail-c8a51.appspot.com",
+  messagingSenderId: "9627600331",
+  appId: "1:9627600331:web:27dfbe6da62ec3804fe24e",
+  measurementId: "G-1X4LJ0HQQ1"
+        };
+
+        // Firebase の初期化
+        const firebaseApp = initializeApp(firebaseConfig);
+
+        // Firebase Authentication モジュールの取得
+        const auth = getAuth(firebaseApp);
+
+        // ユーザーのメールアドレスとパスワードでの登録
+        function signUp(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("User created:", user);
+                })
+                .catch((error) => {
+                    console.error("Error creating user:", error.message);
+                });
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Syatyo Page</h1>
+    
+    <form onsubmit="signUp(event)">
+        <!-- ユーザーのメールアドレスとパスワードでの登録 -->
+        <label>Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <label>Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="submit">Sign Up</button>
+    </form>
+
+</body>
+</html>
